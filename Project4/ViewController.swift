@@ -29,18 +29,21 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
-        
+
         // Progress bar
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let progressButton = UIBarButtonItem(customView: progressView)
-        
+
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        
-        toolbarItems = [progressButton, spacer, refresh]
+        let navigatorBack = UIBarButtonItem(image: UIImage(named: "left_arrow"), style: .plain, target: webView, action: #selector(webView.goBack))
+        let navigatorForward = UIBarButtonItem(image: UIImage(named: "right_arrow"), style: .plain, target: webView, action: #selector(webView.goForward))
+
+        navigationItem.leftBarButtonItem = refresh
+        toolbarItems = [navigatorBack, spacer, progressButton, spacer, navigatorForward]
         navigationController?.isToolbarHidden = false
-        
+
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
 
@@ -68,7 +71,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
     }
-    
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let url = navigationAction.request.url
         if let host = url?.host {
@@ -78,7 +81,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
                     return
                 }
             }
+            let ac = UIAlertController(title: "Blocked", message: "The website you visited is not allowed", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .cancel))
+            ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            present(ac, animated: true)
         }
         decisionHandler(.cancel)
     }
+
 }
