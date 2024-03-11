@@ -13,7 +13,7 @@
 		6B129B182B97BCE1005C25B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B129B162B97BCE1005C25B4 /* Main.storyboard */; };
 		6B129B1A2B97BCE2005C25B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B129B192B97BCE2005C25B4 /* Assets.xcassets */; };
 		6B129B1D2B97BCE2005C25B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B129B1B2B97BCE2005C25B4 /* LaunchScreen.storyboard */; };
-		6B6FFF0B2B9D377A0017304E /* allowed_websites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B6FFF0A2B9D377A0017304E /* allowed_websites.plist */; };
+		6B3646E32B9E8AB300C9B026 /* allowed_websites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B3646E22B9E8AB300C9B026 /* allowed_websites.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		6B129B192B97BCE2005C25B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B129B1C2B97BCE2005C25B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B129B1E2B97BCE2005C25B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6B6FFF0A2B9D377A0017304E /* allowed_websites.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = allowed_websites.plist; sourceTree = "<group>"; };
+		6B3646E22B9E8AB300C9B026 /* allowed_websites.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = allowed_websites.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 				6B129B192B97BCE2005C25B4 /* Assets.xcassets */,
 				6B129B1B2B97BCE2005C25B4 /* LaunchScreen.storyboard */,
 				6B129B1E2B97BCE2005C25B4 /* Info.plist */,
-				6B6FFF0A2B9D377A0017304E /* allowed_websites.plist */,
+				6B3646E22B9E8AB300C9B026 /* allowed_websites.plist */,
 			);
 			path = Project4;
 			sourceTree = "<group>";
@@ -129,7 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B129B1D2B97BCE2005C25B4 /* LaunchScreen.storyboard in Resources */,
-				6B6FFF0B2B9D377A0017304E /* allowed_websites.plist in Resources */,
+				6B3646E32B9E8AB300C9B026 /* allowed_websites.plist in Resources */,
 				6B129B1A2B97BCE2005C25B4 /* Assets.xcassets in Resources */,
 				6B129B182B97BCE1005C25B4 /* Main.storyboard in Resources */,
 			);

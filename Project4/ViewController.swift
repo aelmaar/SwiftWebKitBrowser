@@ -13,19 +13,32 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "hackingwithswift.com"]
+    var allowedWebsites = [String]()
     
     override func loadView() {
         webView = WKWebView()
         
+        // Add self (current view controller) as the web view's navigation delegatei
         webView.navigationDelegate = self
         view = webView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let url = URL(string: "https://" + websites[0])!
+        // Reading the proprty List from the app bundle
+        let filePath = Bundle.main.path(forResource: "allowed_websites", ofType: "plist")!
+        
+        if let data = FileManager.default.contents(atPath: filePath) {
+            let websites = try! PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil)
+            if let websiteArray = websites as? [String] {
+                for website in websiteArray {
+                    allowedWebsites.append(website)
+                }
+            }
+        }
+
+        // Loading the first URL to the web view
+        let url = URL(string: "https://" + allowedWebsites[0])!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
@@ -44,6 +57,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         toolbarItems = [navigatorBack, spacer, progressButton, spacer, navigatorForward]
         navigationController?.isToolbarHidden = false
 
+        // Add observer to the estimated property of the WKWebView object using KVO methodology
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
 
@@ -55,7 +69,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     @objc func openTapped() {
         let ac = UIAlertController(title: "Open page…", message: nil, preferredStyle: .actionSheet)
-        for website in websites {
+        for website in allowedWebsites {
             ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
         }
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -75,7 +89,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let url = navigationAction.request.url
         if let host = url?.host {
-            for website in websites {
+            for website in allowedWebsites {
                 if host.contains(website) {
                     decisionHandler(.allow)
                     return
